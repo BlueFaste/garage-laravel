@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBrandTable extends Migration
+class AddColumnsPremiumBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateBrandTable extends Migration
      */
     public function up()
     {
-        Schema::create('brand', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('name')->nullable();
+        Schema::table('brands', function (Blueprint $table) {
+            $table->boolean('premium');
+
         });
     }
 
@@ -27,6 +26,9 @@ class CreateBrandTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brand');
+        Schema::table('brands', function (Blueprint $table) {
+            $table->dropColumn('premium')->default('false');
+
+        });
     }
 }
