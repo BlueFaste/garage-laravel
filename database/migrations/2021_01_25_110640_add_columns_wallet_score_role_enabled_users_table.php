@@ -14,10 +14,10 @@ class AddColumnsWalletScoreRoleEnabledUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->double('wallet')->default(0);
-            $table->integer('score')->default(0);
+            $table->double('wallet')->default(0)->nullable();
+            $table->integer('score')->default(0)->nullable();
             $table->string('role')->default('customer');
-            $table->boolean('enabled')->default('false');
+            $table->boolean('enabled')->default(false)->nullable();
         });
     }
 
