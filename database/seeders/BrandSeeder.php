@@ -17,6 +17,7 @@ class BrandSeeder extends Seeder
     {
         Brand::factory()
             ->count(10)
+            ->has(Vehicle::factory()->count(3))
             ->create();
     }
 }
