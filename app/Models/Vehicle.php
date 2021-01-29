@@ -13,6 +13,15 @@ class Vehicle extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'name',
+        'brand_id',
+        'price',
+        'odometer',
+        'status',
+        'type',
+    ];
+
     public function brand()
     {
         return $this->belongsTo(Brand::class);
