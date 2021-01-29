@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Brand;
 use App\Models\Vehicle;
+use Mockery\Exception;
 
 class VehicleService
 {
@@ -12,7 +14,15 @@ class VehicleService
     public function saveVehicle(array $inputs): Vehicle
     {
         if ($inputs['name'] && $inputs['brand_id'] && $inputs['price'] && $inputs['status'] && $inputs['odometer'] && $inputs['type']) {
-            var_dump($inputs);
+            try {
+                $brand = Brand::find($inputs['brand_id']);
+                if (!$brand) {
+                    throw new Exception('Exception: Pas de brand in bdd');
+                }
+
+            } catch (Exception $err) {
+                throw $err;
+            }
             $newVehicle = Vehicle::create($inputs);
             return $newVehicle;
         }
