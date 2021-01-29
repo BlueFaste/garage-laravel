@@ -5,6 +5,8 @@ namespace App\Services;
 use App\Models\Brand;
 use App\Models\Vehicle;
 use Mockery\Exception;
+use phpDocumentor\Reflection\Types\Object_;
+use PhpParser\Node\Expr\Array_;
 
 class VehicleService
 {
@@ -26,5 +28,15 @@ class VehicleService
             $newVehicle = Vehicle::create($inputs);
             return $newVehicle;
         }
+    }
+
+    public function getAllVehicles(): Object
+    {
+        return Vehicle::all();
+    }
+
+    public function getAllAvailableVehicle(): Object
+    {
+        return Vehicle::where('status','available')->get();
     }
 }
