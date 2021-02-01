@@ -16,6 +16,88 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('hello', function (){
+    $user =User::find(1);
+    return view('hello', ['user' => $user, 'tom' => 'hello world']);
+});
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/', function () {
+        dd('display all users');
+    });
+
+    Route::post('/create', function (Request $request) {
+        dd('Create a users');
+    });
+
+    Route::delete('/delete/{id}', function ($id) {
+        dd('delete a users'.$id);
+    });
+
+    Route::put('/update/{id}', function ($id, Request $request) {
+        dd('update a users'. $id);
+    });
+});
+
+Route::group(['prefix' => 'vehicles'], function () {
+    Route::get('/', function () {
+        dd('display all vehicles');
+    });
+
+    Route::post('/create', function (Request $request) {
+        dd('Create a vehicles');
+    });
+
+    Route::delete('/delete/{id}', function ($id) {
+        dd('delete a vehicles'.$id);
+    });
+
+    Route::put('/update/{id}', function ($id, Request $request) {
+        dd('update a vehicles'. $id);
+    });
+});
+
+Route::group(['prefix' => 'brands'], function () {
+    Route::get('/', function () {
+        dd('display all brands');
+    });
+
+    Route::post('/create', function (Request $request) {
+        dd('Create a brands');
+    });
+
+    Route::delete('/delete/{id}', function ($id) {
+        dd('delete a brands'.$id);
+    });
+
+    Route::put('/update/{id}', function ($id, Request $request) {
+        dd('update a brands'. $id);
+    });
+
+});
+
+
+Route::group(['prefix' => 'users'], function () {
+    Route::get('/', function () {
+        dd('list users');
+    });
+
+    Route::get('/{id}', function () {
+        dd("detail d'un user");
+    })->name('liste Utilisateurs');
+});
+
+
+//Route::get('/{firstname}', function ($firstname) {
+//    dd('hello ' . $firstname);
+//});
+
+Route::get('/{name}', function (Request $request) {
+    dd($request);
+});
+
+
 Route::any('/vehicles', function (Request $request) {
     $vehicleService = new \App\Services\VehicleService();
     if ($request->has('name') && $request->has('brand_id') && $request->has('price') && $request->has('status') && $request->has('odometer') && $request->has('type')) { // Si j'ai envoyer mes données
@@ -47,59 +129,61 @@ Route::any('/vehicles', function (Request $request) {
 
     $vehicles = $vehicleService->getAllVehicles();
     echo "<ul>";
-    foreach ($vehicles as $vehicle){
-        $brand= $vehicle->brand;
+    foreach ($vehicles as $vehicle) {
+        $brand = $vehicle->brand;
         echo "<li> #$vehicle->id $vehicle->name $brand->name";
     }
     echo "</ul>";
 });
 
-Route::get('/', function () {
+Route::get('/',[\App\Http\Controllers\Frontend\HomeController::class, 'index']);
 
-    $users = User::all();
-
-    echo "<h1>Les utilisateurs</h1>";
-    echo "<ul>";
-
-    foreach ($users as $user) {
-        echo "<li>#$user->id $user->name (score: $user->score, porte-monnaie: $user->wallet, role: $user->role, actif: $user->enabled)</li>";
-    }
-
-    echo "</ul>";
-
-    $brands = Brand::all();
-
-    echo "<h1>Les marques</h1>";
-    echo "<ul>";
-    foreach ($brands as $brand) {
-        echo "<li>";
-        echo "#$brand->id $brand->name (premium: $brand->premium)";
-
-        echo "<ul>";
-        foreach ($brand->vehicles as $vehicle) {
-            echo "<li>#$vehicle->id $vehicle->name (type: $vehicle->type, km: $vehicle->odometer, statut: $vehicle->status)</li>";
-        }
-
-        echo "</ul>";
-        echo "</li>";
-    }
-    echo "</ul>";
-
-    $users = User::has('vehicles')->get();
-
-    echo "<h1>Les locations par client</h1>";
-    echo "<ul>";
-
-    foreach ($users as $user) {
-        echo "<li>";
-        echo "$user->name :";
-
-        echo "<ul>";
-        foreach ($user->vehicles as $vehicle) {
-            echo "<li>" . $vehicle->brand->name . " $vehicle->name (début: " . $vehicle->pivot->started_at->format('d/m/Y') . ", fin: " . $vehicle->pivot->ended_at->format('d/m/Y') . ")</li>";
-        }
-        echo "</ul>";
-        echo "</li>";
-    }
-    echo "</ul>";
-});
+//Route::get('/', function () {
+//
+//    $users = User::all();
+//
+//    echo "<h1>Les utilisateurs</h1>";
+//    echo "<ul>";
+//
+//    foreach ($users as $user) {
+//        echo "<li>#$user->id $user->name (score: $user->score, porte-monnaie: $user->wallet, role: $user->role, actif: $user->enabled)</li>";
+//    }
+//
+//    echo "</ul>";
+//
+//    $brands = Brand::all();
+//
+//    echo "<h1>Les marques</h1>";
+//    echo "<ul>";
+//    foreach ($brands as $brand) {
+//        echo "<li>";
+//        echo "#$brand->id $brand->name (premium: $brand->premium)";
+//
+//        echo "<ul>";
+//        foreach ($brand->vehicles as $vehicle) {
+//            echo "<li>#$vehicle->id $vehicle->name (type: $vehicle->type, km: $vehicle->odometer, statut: $vehicle->status)</li>";
+//        }
+//
+//        echo "</ul>";
+//        echo "</li>";
+//    }
+//    echo "</ul>";
+//
+//    $users = User::has('vehicles')->get();
+//
+//    echo "<h1>Les locations par client</h1>";
+//    echo "<ul>";
+//
+//    foreach ($users as $user) {
+//        echo "<li>";
+//        echo "$user->name :";
+//
+//        echo "<ul>";
+//        foreach ($user->vehicles as $vehicle) {
+//            echo "<li>" . $vehicle->brand->name . " $vehicle->name (début: " . $vehicle->pivot->started_at->format('d/m/Y') . ", fin: " . $vehicle->pivot->ended_at->format('d/m/Y') . ")</li>";
+//        }
+//        echo "</ul>";
+//        echo "</li>";
+//    }
+//    echo "</ul>";
+//});
