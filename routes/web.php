@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::group(['prefix' => 'cars'], function () {
+    Route::get('/create', function () {
+        $brands = brand::all();
+        return view('createCar',['brands'=>$brands]);
     });
 });
 
