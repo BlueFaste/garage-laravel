@@ -146,16 +146,16 @@ class VehicleServiceTest extends TestCase
             ->count(50)
             ->for(Brand::factory()->create())
             ->create();
-        Vehicle::where('status','available');
 
         $vehicleService = new VehicleService();
         $vehicle = $vehicleService->getAllAvailableVehicle();
 
         $vehicleTest=Vehicle::where('status','available')->get();
 
-        dd($vehicle);
+//        dd($vehicle);
 
         $this->assertContainsOnlyInstancesOf(Vehicle::class, $vehicle);
         $this->assertEquals($vehicleTest[0]->name, $vehicle[0]->name);
+        $this->assertEquals($vehicleTest[2]->name, $vehicle[2]->name);
     }
 }
