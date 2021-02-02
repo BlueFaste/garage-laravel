@@ -22,11 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::group(['prefix' => 'cars'], function () {
-    Route::get('/create', function () {
-        $brands = brand::all();
-        return view('createCar',['brands'=>$brands]);
-    });
+Route::group(['prefix' => 'vehicles'], function () {
+    Route::get('/create', [\App\Http\Controllers\VehicleController::class, 'create']);
+    Route::post('/', [\App\Http\Controllers\VehicleController::class, 'store'])->name('vehicle.store');
+    Route::get ('/listing',[\App\Http\Controllers\VehicleController::class, 'listing'])->name('vehicle.listing');
 });
 
 require __DIR__ . '/auth.php';
