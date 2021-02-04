@@ -28,4 +28,9 @@ Route::group(['prefix' => 'vehicles'], function () {
     Route::get ('/listing',[\App\Http\Controllers\VehicleController::class, 'listing'])->name('vehicle.listing');
 });
 
+Route::group(['prefix' => 'users'], function (){
+   Route::get('/{id}',[\App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+   Route::post('/addMonney', [\App\Http\Controllers\UserController::class, 'addMonney'])->name('user.monney');
+});
+
 require __DIR__ . '/auth.php';
