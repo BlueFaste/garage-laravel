@@ -25,12 +25,12 @@ class VehicleController extends Controller
     {
         $vehicle = $this->vehicleService->saveVehicle($request->all());
 
-        dd($vehicle);
+        return redirect()->route('vehicles.create');
     }
 
     public function listing ()
     {
-        $vehicles = Vehicle::all();
+        $vehicles = Vehicle::with('brand')->get();
         return view('vehicles/listingVehicles',['vehicles' =>$vehicles]);
     }
 }
