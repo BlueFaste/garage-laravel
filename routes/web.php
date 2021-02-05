@@ -18,6 +18,10 @@ use App\Http\Controllers\VehicleController;
 Auth::routes();
 
 Route::get('/', [VehicleController::class, 'index'])->name('vehicles.index');
+Route::get('vehicle/{id}', [VehicleController::class, 'details'])->name('vehicles.details');
+Route::post('calcul/price', [VehicleController::class, 'calculePrice'])->name('vehicle.price');
+Route::get('location/{id}/{price}', [VehicleController::class, 'details'])->name('vehicles.priceDetail');
+Route::post('/location/paye', [VehicleController::class, 'paye'])->name('vehicles.paye');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'user'], function () {

@@ -19,6 +19,7 @@
                        <div class="card-body">
                            <p><span>{{ $vehicle->name }}</span> <span>{{ $vehicle->brand->name }}</span></p>
                            <p>{{ $vehicle->odometer }} Km - {{ $vehicle->price }} €</p>
+                           <a class="btn badge-success" href="{{route('vehicles.details', ['id'=>$vehicle->id])}}">Loyer ce vehicule</a>
                        </div>
                    </div>
                </div>
