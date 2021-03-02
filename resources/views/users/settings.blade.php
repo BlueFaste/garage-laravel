@@ -21,5 +21,9 @@
            </div>
        </div>
        @include('layouts.includes.form-errors')
+
+       <div>
+           <button class="btn btn-info"><a href="{{ route('user.rent') }}">Voir mes locations</a></button>
+       </div>
    </div>
 @endsection
