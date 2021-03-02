@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\PrintHello;
 use App\Models\Brand;
 use App\Models\Vehicle;
 use App\Services\CannotReservedVehicleLockedException;
@@ -68,6 +69,8 @@ class VehicleController extends Controller
 
         try {
             $this->vehicleService->reserved($vehicle, $user, $request->all());
+
+            $this->dispatch(new PrintHello());
 
             return redirect('/');
         } catch (UserHasNotEnoughMoneyException $exception) {
