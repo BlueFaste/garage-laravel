@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Vehicle;
 use App\Services\CannotReservedVehicleLockedException;
+use Illuminate\Cache\Repository;
 use Illuminate\Http\Request;
 use App\Services\VehicleService;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +21,23 @@ class VehicleController extends Controller
      */
     protected $vehicleService;
 
-    public function __construct(VehicleService $vehicleService)
+    public function __construct(VehicleService $vehicleService, Repository $cache)
     {
         $this->vehicleService = $vehicleService;
+        $this->cache = $cache;
+
     }
 
     public function index(Request $request)
     {
-        $vehicles = Vehicle::with('brand')->get();
+
+        if ($this->cache->has('vehicles')){
+            $vehicles = $this->cache->get('vehicles');
+        } else {
+            $vehicles = Vehicle::with('brand')->get();
+            $this->cache->put('vehicles', $vehicles, 10);
+        }
+
 
         return view('vehicles.index', ['vehicles' => $vehicles]);
     }
