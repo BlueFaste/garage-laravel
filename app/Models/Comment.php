@@ -14,7 +14,7 @@ class Comment extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'content', 'enabled',
+        'content', 'enabled', 'annoucement_id'
     ];
 
     public function user()

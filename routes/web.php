@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AnnoucementController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Middleware\IsAdmin;
@@ -38,9 +39,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
         Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
 
-            Route::get('/update/{annoucement}', [AnnoucementController::class, 'displayUpdate'])->name('annoucement.display.update');
-            Route::put('/update/{annoucement}', [AnnoucementController::class, 'update'])->name('annoucement.update');
-            Route::delete('/delete/{annoucement}', [AnnoucementController::class, 'delete'])->name('annoucement.delete');
+        Route::get('/update/{annoucement}', [AnnoucementController::class, 'displayUpdate'])->name('annoucement.display.update');
+        Route::put('/update/{annoucement}', [AnnoucementController::class, 'update'])->name('annoucement.update');
+        Route::delete('/delete/{annoucement}', [AnnoucementController::class, 'delete'])->name('annoucement.delete');
+    });
+    Route::group(['prefix' => 'comments'], function (){
+        Route::post('/create/{annoucement}', [CommentController::class, 'store'])->name('comment.store');
+
+        Route::get('/update/{comment}', [CommentController::class, 'displayUpdate'])->name('comment.display.update');
+        Route::put('/update/{comment}', [CommentController::class, 'update'])->name('comment.update');
+        Route::delete('/delete/{comment}', [CommentController::class, 'delete'])->name('comment.delete');
+
     });
 
 //    Route::group(['prefix' => 'comments'], function (){
