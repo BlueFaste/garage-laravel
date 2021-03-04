@@ -45,12 +45,10 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('his-annoucement', function (User $user, Annoucement $annoucement) {
-
             return $user->id === $annoucement->user_id ;
         });
 
         Gate::define('his-comment', function (User $user, Comment $comment) {
-
             return $user->id === $comment->user_id ;
         });
     }

@@ -12,7 +12,6 @@ class CommentController extends Controller
 {
     public function store(CreateCommentRequest $request,  Annoucement $annoucement)
     {
-//        dd($annoucement);
         $user =$request->user();
         $comment = new Comment([
             'content' => $request->get('content'),
@@ -31,12 +30,10 @@ class CommentController extends Controller
 
     public function update(CreateCommentRequest $request ,Comment $comment)
     {
-//        dd($request->get('content'));
         $comment->update([
             'content' => $request->get('content'),
         ]);
         return back();
-
     }
 
     public function delete(Comment $comment)
@@ -47,7 +44,6 @@ class CommentController extends Controller
 
     public function updateEnabled(EnabledRequest $request, Comment $comment)
     {
-//        dd($request->get('enabled'));
         $comment->update([
             'enabled'=> $request->get('enabled')
         ]);
