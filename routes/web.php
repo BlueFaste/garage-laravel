@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Middleware\IsAdmin;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin;
+use App\Http\Controllers\AnnoucementController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
-use \App\Http\Controllers\Admin;
-use \App\Http\Controllers\AnnoucementController;
+use App\Http\Middleware\IsAdmin;
+use Illuminate\Support\Facades\Route;
+use \App\Http\Middleware\HisAnnoucement;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,12 +34,16 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'annoucements'], function (){
-       Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
-       Route::get('/create',[AnnoucementController::class, 'displayStore'])->name('annoucement.display.store');
-       Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
-       Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
-       Route::put('/{annoucement}',[AnnoucementController::class, 'update'])->name('annoucement.update');
-       Route::delete('/delete/{annoucement}',[AnnoucementController::class, 'delete'])->name('annoucement.delete');
+        Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
+        Route::get('/create',[AnnoucementController::class, 'displayStore'])->name('annoucement.display.store');
+        Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
+        Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
+
+//        Route::group(['middleware' => [HisAnnoucement::class]], function () {
+            Route::get('/update/{annoucement}', [AnnoucementController::class, 'displayUpdate'])->name('annoucement.display.update');
+            Route::put('/update/{annoucement}', [AnnoucementController::class, 'update'])->name('annoucement.update');
+            Route::delete('/delete/{annoucement}', [AnnoucementController::class, 'delete'])->name('annoucement.delete');
+//        });
     });
 
 //    Route::group(['prefix' => 'comments'], function (){

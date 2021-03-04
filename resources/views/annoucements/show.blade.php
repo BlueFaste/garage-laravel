@@ -8,7 +8,7 @@
         <p><span class="text-success">price</span> : {{ $annoucement->price }}</p>
         <p><span class="text-success">user</span> : {{ $annoucement->user->name }}</p>
         @can('his-annoucement', $annoucement)
-            <button class="btn btn-primary">Editer</button>
+            <button class="btn btn-primary"><a href="{{ route('annoucement.display.update', $annoucement) }}" class="text-white">Editer</a></button>
             <form method="post" action="{{ route('annoucement.delete', $annoucement) }}">
                 @method('DELETE')
                 @csrf

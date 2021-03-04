@@ -18,10 +18,10 @@ class AnnoucementController extends Controller
         return view('annoucements.index', ['annoucements' => $annoucements]);
     }
 
-    public function show($annoucement)
+    public function show(Annoucement $annoucement)
     {
         try{
-            $annoucement = Annoucement::findOrFail($annoucement);
+//            $annoucement = Annoucement::findOrFail($annoucement);
             $comments = Comment::with('user')->where('annoucement_id', '=', $annoucement->id)->get();
 //            dd($comments);
 
@@ -52,10 +52,9 @@ class AnnoucementController extends Controller
         return redirect()->route("annoucement.index");
     }
 
-    public function delete($annoucement)
+    public function delete(Annoucement $annoucement)
     {
         try{
-            $annoucement = Annoucement::findOrFail($annoucement);
             $comments = Comment::where('annoucement_id', '=', $annoucement->id)->get();
 //            dd($comments);
             foreach ($comments as $comment){
@@ -69,6 +68,23 @@ class AnnoucementController extends Controller
             dd($e);
         }
 
+    }
+
+    public function displayUpdate(Annoucement $annoucement)
+    {
+        return view ('annoucements.update', ['annoucement' => $annoucement]);
+    }
+
+    public function update(CreateAnnoucementRequest $request, Annoucement $annoucement)
+    {
+//        dd($request->get('title'), $request->get('content'), $request->get('price'));
+        $annoucement->update([
+            'title' => $request->get('title'),
+            'content' => $request->get('content'),
+            'price' => $request->get('price'),
+        ]);
+
+        return redirect()->route("annoucement.show", $annoucement);
     }
 
 
