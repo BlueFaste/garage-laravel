@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             BrandSeeder::class,
             UserSeeder::class,
 //            VehicleSeeder::class,
+            AnnoucementSeeder::class,
+//            CommentSeeder::class,
         ]);
     }
 }
