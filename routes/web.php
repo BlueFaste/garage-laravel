@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use \App\Http\Controllers\Admin;
+use \App\Http\Controllers\AnnoucementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,23 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}/reserved', [VehicleController::class, 'reserved'])->name('vehicles.reserved');
         Route::post('/{vehicle}/reserved', [VehicleController::class, 'storeReserved'])->name('vehicules.reserved.store');
     });
+
+    Route::group(['prefix' => 'annoucements'], function (){
+       Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
+       Route::get('/create',[AnnoucementController::class, 'displayStore'])->name('annoucement.display.store');
+       Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
+       Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
+       Route::put('/{annoucement}',[AnnoucementController::class, 'update'])->name('annoucement.update');
+       Route::delete('/delete/{annoucement}',[AnnoucementController::class, 'delete'])->name('annoucement.delete');
+    });
+
+//    Route::group(['prefix' => 'comments'], function (){
+//       Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
+//       Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
+//       Route::post('/',[AnnoucementController::class, 'store'])->name('annoucement.store');
+//       Route::put('/{annoucement}',[AnnoucementController::class, 'update'])->name('annoucement.update');
+//       Route::delete('/{annoucement}',[AnnoucementController::class, 'delete'])->name('annoucement.delete');
+//    });
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => [IsAdmin::class]], function () {
