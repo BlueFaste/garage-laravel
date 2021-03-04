@@ -12,13 +12,17 @@
 
     <ul>
         @foreach($comments as $comment)
-            <li class="my-2">
-                {{--            {{ $annoucement }}--}}
+            <li class="my-2 d-flex">
                 <span class="text-info">id</span> : {{ $comment->id }}, <span class="text-info">content</span>: {{ $comment->content }},
                 <span class="text-info">user</span>: {{ $comment->user->name }}.
                 @can('his-comment', $comment)
-                    <button class="btn btn-primary">Editer</button>
-                    <button class="btn btn-danger">Supprimer</button>
+                    <button class="btn btn-primary"><a href="{{ route('comment.display.update', $comment) }}" class="text-white">Editer</a></button>
+                    <form method="post" action="{{ route('comment.delete', $comment) }}">
+                        @method('DELETE')
+                        @csrf
+                        <input type="submit" class="btn btn-danger" value="Supprimer"></input>
+
+                    </form>
                 @endcan
                 @can('enabled-comment')
                 <!-- Rounded switch -->

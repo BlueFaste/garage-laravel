@@ -22,4 +22,25 @@ class CommentController extends Controller
         $user->comments()->save($comment);
         return back();
     }
+
+    public function displayUpdate(Comment $comment)
+    {
+        return view ('annoucements.comments.update',['comment'=>$comment]);
+    }
+
+    public function update(CreateCommentRequest $request ,Comment $comment)
+    {
+//        dd($request->get('content'));
+        $comment->update([
+            'content' => $request->get('content'),
+        ]);
+        return back();
+
+    }
+
+    public function delete(Comment $comment)
+    {
+        $comment->delete();
+        return back();
+    }
 }
