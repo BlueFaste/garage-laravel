@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isAdmin();
         });
 
+        Gate::define('user-connected', function (User $user) {
+            return auth()->check();
+        });
+
         Gate::define('enabled-comment', function (User $user) {
             return $user->isAdmin();
         });

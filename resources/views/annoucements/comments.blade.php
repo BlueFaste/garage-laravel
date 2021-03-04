@@ -1,14 +1,16 @@
 <div>
     <p>Commentaires</p>
-    <form action="{{ route('comment.store', $annoucement) }}" method="post" class="d-flex flex-column">
-        @method('POST')
-        @csrf
-        <label for="content">Votre commentaire :</label>
-        <textarea id="content" name="content" type="textarea" rows="6"></textarea>
-        <input type="submit" class="btn btn-success" value="Ajouter un commentaire">
-        @include('layouts.includes.form-errors')
+    @can('user-connected')
+        <form action="{{ route('comment.store', $annoucement) }}" method="post" class="d-flex flex-column">
+            @method('POST')
+            @csrf
+            <label for="content">Votre commentaire :</label>
+            <textarea id="content" name="content" type="textarea" rows="6"></textarea>
+            <input type="submit" class="btn btn-success" value="Ajouter un commentaire">
+            @include('layouts.includes.form-errors')
 
-    </form>
+        </form>
+    @endcan
 
     <ul>
         @foreach($comments as $comment)

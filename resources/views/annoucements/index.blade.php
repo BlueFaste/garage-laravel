@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <button class="btn btn-primary"><a href="{{ route('annoucement.display.store') }}" class="text-white">Ajouter une annonce</a></button>
+    @can('user-connected')
+        <button class="btn btn-primary"><a href="{{ route('annoucement.display.store') }}" class="text-white">Ajouter une annonce</a></button>
+    @endcan
     <form action="{{ route('annoucement.filter') }}" method="post">
         @method('POST')
         @csrf

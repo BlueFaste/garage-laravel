@@ -34,14 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'annoucements'], function (){
-        Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
-
         Route::get('/create',[AnnoucementController::class, 'displayStore'])->name('annoucement.display.store');
         Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
-
-        Route::post('/filter', [AnnoucementController::class, 'filter'])->name('annoucement.filter');
-
-        Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
 
         Route::get('/update/{annoucement}', [AnnoucementController::class, 'displayUpdate'])->name('annoucement.display.update');
         Route::put('/update/{annoucement}', [AnnoucementController::class, 'update'])->name('annoucement.update');
@@ -49,7 +43,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/delete/{annoucement}', [AnnoucementController::class, 'delete'])->name('annoucement.delete');
 
         Route::put('/enabled/{annoucement}', [AnnoucementController::class, 'updateEnabled'])->name('annoucement.update.enabled');
-
 
     });
     Route::group(['prefix' => 'comments'], function (){
@@ -63,15 +56,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/enabled/{comment}', [CommentController::class, 'updateEnabled'])->name('comment.update.enabled');
 
     });
-
-//    Route::group(['prefix' => 'comments'], function (){
-//       Route::get('/',[AnnoucementController::class, 'index'])->name('annoucement.index');
-//       Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
-//       Route::post('/',[AnnoucementController::class, 'store'])->name('annoucement.store');
-//       Route::put('/{annoucement}',[AnnoucementController::class, 'update'])->name('annoucement.update');
-//       Route::delete('/{annoucement}',[AnnoucementController::class, 'delete'])->name('annoucement.delete');
-//    });
 });
+Route::group(['prefix' => 'annoucements'], function () {
+//    Je permets aux visiteurs de voir au moins la liste d'article et le detail d'un article
+    Route::get('/', [AnnoucementController::class, 'index'])->name('annoucement.index');
+
+    Route::post('/filter', [AnnoucementController::class, 'filter'])->name('annoucement.filter');
+
+    Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
+});
+
 
 Route::group(['prefix' => 'admin', 'middleware' => [IsAdmin::class]], function () {
     Route::get('/vehicles/create', [VehicleController::class, 'create'])->name('vehicles.create');
