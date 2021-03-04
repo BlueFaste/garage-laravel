@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAnnoucementRequest;
+use App\Http\Requests\EnabledRequest;
 use App\Models\Annoucement;
 use App\Models\Comment;
 use Mockery\Exception;
@@ -22,7 +23,7 @@ class AnnoucementController extends Controller
     {
         try{
 //            $annoucement = Annoucement::findOrFail($annoucement);
-            $comments = Comment::with('user')->where('annoucement_id', '=', $annoucement->id)->get();
+            $comments = Comment::with('user')->where('annoucement_id', '=', $annoucement->id)->where('enabled', '=', '1')->get();
 //            dd($comments);
 
             return view('annoucements.show', ['annoucement' => $annoucement, 'comments'=> $comments]);
@@ -93,6 +94,14 @@ class AnnoucementController extends Controller
         return redirect()->route("annoucement.show", $annoucement);
     }
 
+    public function updateEnabled(EnabledRequest $request, Annoucement $annoucement)
+    {
+//        dd($request->get('enabled'));
+        $annoucement->update([
+            'enabled'=> $request->get('enabled')
+        ]);
+        return back();
+    }
 
 
 

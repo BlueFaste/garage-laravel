@@ -17,14 +17,16 @@
             </form>
         @endcan
         @can('enabled-annoucement')
-        <!-- Rounded switch -->
-            enable
-            <label class="switch">
-                <input type="checkbox" checked="{{$annoucement->enabled}}" name="comment-enabled">
-                <span class="slider round"></span>
-            </label>
-            not enable
-            <button class="btn btn-warning"><a href="">Changer l'état</a></button>
+            <form method="post" action=" {{ route('annoucement.update.enabled', $annoucement) }}" >
+                @method('PUT')
+                @csrf
+                <select name="enabled" id="enabled">
+                    <option value="1" {{ $annoucement->enabled === 1 ? "selected='selected'" : '' }}>Enable</option>
+                    <option value="0" {{ $annoucement->enabled === 0 ? "selected='selected'" : '' }}>disable</option>
+                </select>
+                <input type="submit" class="btn btn-warning" value="Changer l'état"/>
+                @include('layouts.includes.form-errors')
+            </form>
         @endcan
     </div>
 
