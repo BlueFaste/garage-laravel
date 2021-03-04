@@ -85,7 +85,7 @@ class AnnoucementController extends Controller
         $annoucement->update([
             'enabled'=> $request->get('enabled')
         ]);
-        return back();
+        return redirect()->route("annoucement.index");
     }
 
     public function filter(Request $request){
