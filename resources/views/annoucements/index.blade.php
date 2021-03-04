@@ -2,6 +2,13 @@
 
 @section('content')
     <button class="btn btn-primary"><a href="{{ route('annoucement.display.store') }}" class="text-white">Ajouter une annonce</a></button>
+    <form action="{{ route('annoucement.filter') }}" method="post">
+        @method('POST')
+        @csrf
+        <label for="filter">Recherche</label>
+        <input type="text" id="filter" name="filter">
+        <input type="submit" class="btn btn-light" value="Rechecher">
+    </form>
     <ul>
         @foreach($annoucements as $annoucement)
             <li class="my-2">

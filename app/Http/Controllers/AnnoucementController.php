@@ -6,6 +6,7 @@ use App\Http\Requests\CreateAnnoucementRequest;
 use App\Http\Requests\EnabledRequest;
 use App\Models\Annoucement;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 use Mockery\Exception;
 
 class AnnoucementController extends Controller
@@ -101,6 +102,14 @@ class AnnoucementController extends Controller
             'enabled'=> $request->get('enabled')
         ]);
         return back();
+    }
+
+    public function filter(Request $request){
+//        dd($request->get('filter'));
+        $filter= $request->get('filter');
+        $annoucementsFilter = Annoucement::where('title','LIKE','%'.$filter.'%')->where('enabled', '=', true)->get();
+//        dd($annoucement);
+        return view('annoucements.index', ['annoucements' => $annoucementsFilter]);
     }
 
 
