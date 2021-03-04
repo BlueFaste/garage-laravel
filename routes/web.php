@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/settings/money', [UserController::class, 'addMoney'])->name('user.add.money');
         Route::get('/rent', [UserController::class, 'getRent'])->name('user.rent');
         Route::get('/rent/add/{id}', [UserController::class, 'displayFormAddDayOfRent'])->name('user.rent.display.add');
+        Route::put('/rent/add/{id}', [UserController::class, 'addDayOfRent'])->name('user.rent.add');
     });
     Route::group(['prefix' => 'vehicles'], function () {
         Route::get('/{id}/reserved', [VehicleController::class, 'reserved'])->name('vehicles.reserved');

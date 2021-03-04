@@ -49,6 +49,7 @@ class User extends Authenticatable
             ->withPivot([
                 'started_at',
                 'ended_at',
+                'id',
             ]);
     }
 
