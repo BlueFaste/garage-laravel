@@ -6,7 +6,6 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Middleware\HisAnnoucement;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,11 +38,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/create',[AnnoucementController::class, 'store'])->name('annoucement.store');
         Route::get('/{annoucement}',[AnnoucementController::class, 'show'])->name('annoucement.show');
 
-//        Route::group(['middleware' => [HisAnnoucement::class]], function () {
             Route::get('/update/{annoucement}', [AnnoucementController::class, 'displayUpdate'])->name('annoucement.display.update');
             Route::put('/update/{annoucement}', [AnnoucementController::class, 'update'])->name('annoucement.update');
             Route::delete('/delete/{annoucement}', [AnnoucementController::class, 'delete'])->name('annoucement.delete');
-//        });
     });
 
 //    Route::group(['prefix' => 'comments'], function (){
