@@ -43,6 +43,9 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    <a href="{{ route('annoucement.index') }}">
+                        <button class="btn btn-info">Annonces</button>
+                    </a>
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
