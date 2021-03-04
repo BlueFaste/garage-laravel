@@ -56,4 +56,14 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class);
+    }
+
+    public function annoucements()
+    {
+        return $this->hasMany(Annoucement::class);
+    }
 }
