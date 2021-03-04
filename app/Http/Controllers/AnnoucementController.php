@@ -70,9 +70,15 @@ class AnnoucementController extends Controller
 
     }
 
-    public function displayUpdate(Annoucement $annoucement)
+    public function displayUpdate( Annoucement $annoucement)
     {
+//        $user = $request->user();
+//        if( Gate::allows('his-annoucement', $annoucement)){
         return view ('annoucements.update', ['annoucement' => $annoucement]);
+//        } else{
+//            abort(403);
+//        }
+
     }
 
     public function update(CreateAnnoucementRequest $request, Annoucement $annoucement)
