@@ -7,6 +7,7 @@ use App\Http\Requests\EnabledRequest;
 use App\Models\Annoucement;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use mysql_xdevapi\Exception;
 
 class CommentController extends Controller
 {
@@ -30,10 +31,19 @@ class CommentController extends Controller
 
     public function update(CreateCommentRequest $request ,Comment $comment)
     {
+//        dd($comment);
         $comment->update([
             'content' => $request->get('content'),
         ]);
-        return back();
+
+        try {
+            $annoucement = Annoucement::findOrFail($comment->annoucement_id);
+            return redirect()->route("annoucement.show", $annoucement);
+        }
+        catch (Exception $e) {
+            dd($e);
+        }
+
     }
 
     public function delete(Comment $comment)
