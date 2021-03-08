@@ -15,9 +15,9 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'domain' => env('sandboxb3e3fc8cab2a4e18b5f63f7c680e02d8.mailgun.org'),
+        'secret' => env('4351f95b408d51d9a38dac970090faa8-a2b91229-876f427b'),
+        'endpoint' => env('api.eu.mailgun.net', 'api.mailgun.net'),
     ],
 
     'postmark' => [
